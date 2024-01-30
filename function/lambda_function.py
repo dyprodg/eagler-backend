@@ -1,5 +1,5 @@
 import boto3
-from PIL import Image
+from PIL import Image, ImageResampling
 from io import BytesIO
 import os
 
@@ -24,7 +24,7 @@ def resize_and_crop(image, target_width, target_height):
         scaled_width = round(target_height * original_ratio)
 
     # Skalieren des Bildes
-    image = image.resize((scaled_width, scaled_height), Image.ANTIALIAS)
+    image = image.resize((scaled_width, scaled_height), ImageResampling.LANCZOS)
 
     # Zentrieren und Ausschneiden des Bildes
     left = (scaled_width - target_width) / 2

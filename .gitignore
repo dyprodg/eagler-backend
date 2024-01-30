@@ -6,6 +6,10 @@
 *.tfstate.*.backup
 *.tfstate.backup
 
+# Ignore Terraform lock files
+*.tfstate.lock.info
+*.tfstate*.lock.info
+
 # .tfvars files may contain sensitive data
 *.tfvars
 *.tfvars.json
@@ -33,3 +37,4 @@ secrets.tfvars
 
 # Ignore system files
 .DS_Store
+

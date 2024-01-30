@@ -47,9 +47,8 @@ def lambda_handler(event, context):
     image = Image.open(BytesIO(file_content))
     image = resize_and_crop(image, 1080, 1080)  # Zuschneiden und Skalieren
 
-    # Konvertieren Sie das Bild in RGB, falls es RGBA ist
-    if image.mode == 'RGBA':
-        image = image.convert('RGB')
+    # Konvertieren des Bildes in RGB
+    image = image.convert('RGB')
 
     # Save the processed image temporarily
     buffer = BytesIO()

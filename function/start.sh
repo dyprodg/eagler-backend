@@ -10,7 +10,7 @@ sudo yum install python3 python3-pip -y
 sudo yum install docker -y
 
 # Add the ec2-user to the Docker group
-sudo usermod -a -G docker ec2-user
+sudo usermod -a -G docker ubuntu
 
 # Start the Docker service
 sudo systemctl start docker

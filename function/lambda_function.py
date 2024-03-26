@@ -1,5 +1,6 @@
 import boto3
 from PIL import Image
+from PIL import ExifTags
 from io import BytesIO
 import os
 
@@ -15,6 +16,24 @@ def lambda_handler(event, context):
 
     # Image processing: Open and convert to JPEG
     image = Image.open(BytesIO(file_content))
+
+    # Correct the orientation using the exif data
+    try:
+        for orientation in ExifTags.TAGS.keys():
+            if ExifTags.TAGS[orientation] == 'Orientation':
+                break
+        exif = dict(image._getexif().items())
+
+        if exif[orientation] == 3:
+            image = image.rotate(180, expand=True)
+        elif exif[orientation] == 6:
+            image = image.rotate(270, expand=True)
+        elif exif[orientation] == 8:
+            image = image.rotate(90, expand=True)
+    except (AttributeError, KeyError, IndexError):
+        # In case the exif data is not available or doesn't contain orientation info
+        pass
+
 
     # Konvertieren Sie das Bild in RGB, falls es RGBA oder ein anderes Format ist
     if image.mode != 'RGB':

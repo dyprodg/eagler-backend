@@ -1,17 +1,22 @@
 # Create the Lambda Function with Environment Variables
 resource "aws_lambda_function" "image_lambda" {
-  function_name = var.lambda_function_name
-  image_uri     = var.docker_image_uri
-  package_type  = "Image"
-  role          = aws_iam_role.lambda_role.arn
-  memory_size   = var.lambda_memory_size
-  timeout       = var.lambda_timeout
+  function_name    = var.lambda_function_name  
+  role             = aws_iam_role.lambda_role.arn  
+  handler          = var.lambda_handler  
+  runtime          = var.lambda_runtime  
+  architectures    = var.lambda_architecture  
+  memory_size      = var.lambda_memory_size 
+  filename         = "dummy.zip"  
 
   # Environment Variables
   environment {
     variables = {
       TARGET_BUCKET = aws_s3_bucket.target_bucket.id
     }
+  }
+    
+  lifecycle {
+    ignore_changes = [filename]
   }
 }
 

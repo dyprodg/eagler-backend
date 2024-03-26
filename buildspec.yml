@@ -4,14 +4,18 @@ phases:
   pre_build:
     commands:
       - echo prebuildphase
+      - yum install -y wget
 
   build:
     commands:
       - cd function
       - ls -R
       - echo Installing source Python dependencies...
-      - pip3 install wheel
-      - pip3 wheel Pillow==8.4.0 --no-binary :all:
+      - pip3 install Pillow==8.4.0 --target .
+      - echo Copying libjpeg.so.62...
+      - wget https://github.com/libjpeg-turbo/libjpeg-turbo/archive/2.0.6.tar.gz
+      - tar -xzf 2.0.6.tar.gz
+      - cp libjpeg-turbo-2.0.6/build/static/lib64/libjpeg.so.62 .
       - echo Zipping the Lambda function code...
       - ls -R
       - zip -r lambda_function_payload.zip .

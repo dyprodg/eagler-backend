@@ -12,6 +12,7 @@ phases:
       - echo Installing source Python dependencies...
       - pip3 install Pillow==8.4.0
       - echo Zipping the Lambda function code...
+      - ls -R
       - zip -r lambda_function_payload.zip .
 
   post_build:

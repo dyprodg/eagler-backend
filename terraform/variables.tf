@@ -87,7 +87,7 @@ variable "codebuild_compute_type" {
 
 variable "codebuild_image" {
   description = "The image of the CodeBuild project"
-  default     = "aws/codebuild/amazonlinux-x86_64-lambda-standard:nodejs18"
+  default     = "aws/codebuild/amazonlinux-x86_64-lambda-standard:python3.11"
 
 }
 

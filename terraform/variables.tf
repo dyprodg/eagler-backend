@@ -36,7 +36,7 @@ variable "lambda_timeout" {
 
 variable "lambda_handler" {
   description = "The handler of the Lambda function"
-  default     = "function/lambda_function.lambda_handler"  # Updated the default value to match the file structure
+  default     = "lambda_function.lambda_handler"  # Updated the default value to match the file structure
 }
 
 variable "lambda_runtime" {

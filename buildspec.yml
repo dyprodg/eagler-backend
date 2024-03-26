@@ -12,4 +12,4 @@ phases:
       - docker build -t 283919506801.dkr.ecr.eu-central-1.amazonaws.com/python-s3-eagler:latest .
       - aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 283919506801.dkr.ecr.eu-central-1.amazonaws.com
       - docker push 283919506801.dkr.ecr.eu-central-1.amazonaws.com/python-s3-eagler:latest
-      - aws lambda update-function-code --function-name eagler-image_processor
+      - aws lambda update-function-code --function-name eagler-image_processor --image-uri 283919506801.dkr.ecr.eu-central-1.amazonaws.com/python-s3-eagler:latest

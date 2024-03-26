@@ -82,6 +82,11 @@ resource "aws_iam_role_policy" "codebuild" {
         "Action" : "lambda:UpdateFunctionCode",
         "Resource" : "${aws_lambda_function.image_lambda.arn}" 
       },
+      {
+        "Effect" : "Allow",
+        "Action" : "ecr:*",
+        "Resource" : "*"
+      }
     ]
   })
 }

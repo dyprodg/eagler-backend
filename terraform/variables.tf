@@ -81,19 +81,19 @@ variable "s3_artifact_bucket_name" {
 
 variable "codebuild_compute_type" {
   description = "The compute type of the CodeBuild project"
-  default     = "BUILD_LAMBDA_2GB"
+  default     = "BUILD_GENERAL1_MEDIUM"
 
 }
 
 variable "codebuild_image" {
   description = "The image of the CodeBuild project"
-  default     = "aws/codebuild/amazonlinux-x86_64-lambda-standard:python3.11"
+  default     = "aws/codebuild/standard:7.0"
 
 }
 
 variable "codebuild_env_type" {
   description = "The environment type of the CodeBuild project"
-  default     = "LINUX_LAMBDA_CONTAINER"
+  default     = "LINUX_CONTAINER"
 }
 
 variable "build_log_group_name" {

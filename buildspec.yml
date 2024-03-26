@@ -1,26 +1,15 @@
 version: 0.2
 
 phases:
-  pre_build:
-    commands:
-      - echo prebuildphase
-
   build:
     commands:
       - cd function
-      - ls -R
-      - echo Installing source Python dependencies...
-      - pip3 install Pillow==8.4.0 --target .
-      - echo Copying libjpeg.so.62...
-      - python3 -c "import urllib.request; urllib.request.urlretrieve('https://github.com/libjpeg-turbo/libjpeg-turbo/archive/2.0.6.tar.gz', 'libjpeg.tar.gz')"
-      - tar -xzf libjpeg.tar.gz
-      - cp libjpeg-turbo-2.0.6/build/static/lib64/libjpeg.so.62 .
-      - echo Zipping the Lambda function code...
-      - ls -R
-      - zip -r lambda_function_payload.zip .
-
-  post_build:
-    commands:
-      - echo Build completed
-      - echo Deploying Lambda function...
-      - aws lambda update-function-code --function-name eagler-image_processor --zip-file fileb://lambda_function_payload.zip
+      - |
+        if ! command -v docker &> /dev/null; then
+          echo "Docker not found. Installing Docker..."
+          # Install Docker here
+        fi
+      - docker build -t 283919506801.dkr.ecr.eu-central-1.amazonaws.com/python-s3-eagler:latest .
+      - aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 283919506801.dkr.ecr.eu-central-1.amazonaws.com
+      - docker push 283919506801.dkr.ecr.eu-central-1.amazonaws.com/python-s3-eagler:latest
+      - aws lambda update-function-code --function-name eagler-image_processor
